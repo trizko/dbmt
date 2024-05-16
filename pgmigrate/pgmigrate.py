@@ -94,8 +94,8 @@ def main():
     base_subparser.add_argument("--db-url", default="postgres://postgres:postgres@localhost:5432/postgres", help="PostgreSQL database URL")
     base_subparser.add_argument("--migrations-dir", default="migrations", help="Directory containing migration files")
 
-    up_parser = subparsers.add_parser("up", help="Run migrations", parents=[base_subparser])
-    down_parser = subparsers.add_parser("down", help="Rollback last migration", parents=[base_subparser])
+    subparsers.add_parser("up", help="Run migrations", parents=[base_subparser])
+    subparsers.add_parser("down", help="Rollback last migration", parents=[base_subparser])
 
     args = parser.parse_args()
 
