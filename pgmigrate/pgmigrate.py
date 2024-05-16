@@ -88,13 +88,15 @@ class MigrationTool:
 
 def main():
     parser = argparse.ArgumentParser(description="PostgreSQL Migration Tool")
-    subparsers = parser.add_subparsers(dest="command")
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
     up_parser = subparsers.add_parser("up", help="Run migrations")
-    down_parser = subparsers.add_parser("down", help="Rollback last migration")
+    up_parser.add_argument("--db-url", required=True, help="PostgreSQL database URL")
+    up_parser.add_argument("--migrations-dir", default="migrations", help="Directory containing migration files")
 
-    parser.add_argument("--db-url", required=True, help="PostgreSQL database URL")
-    parser.add_argument("--migrations-dir", default="migrations", help="Directory containing migration files")
+    down_parser = subparsers.add_parser("down", help="Rollback last migration")
+    down_parser.add_argument("--db-url", required=True, help="PostgreSQL database URL")
+    down_parser.add_argument("--migrations-dir", default="migrations", help="Directory containing migration files")
 
     args = parser.parse_args()
 
