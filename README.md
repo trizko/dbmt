@@ -11,16 +11,14 @@
 ## Requirements
 
 - Python 3.x
-- `psycopg2` library
 
 ## Installation
 
-1. Install the dependencies:
-   ```sh
-   pip install -r requirements.txt
-   ```
+Install `pgmigrate` from the root directory of this repo:
 
-2. Save the `pgmigrate.py` script to your project directory.
+```sh
+pip install .
+```
 
 ## Usage
 
@@ -41,7 +39,7 @@
 To apply all pending migrations:
 
 ```sh
-python pgmigrate.py up --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
+pgmigrate up --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
 ```
 
 #### Rolling Back the Last Migration
@@ -49,7 +47,7 @@ python pgmigrate.py up --db-url postgres://user:password@localhost:5432/your_db_
 To rollback the last applied migration:
 
 ```sh
-python pgmigrate.py down --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
+pgmigrate down --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
 ```
 
 ### Migration Files
