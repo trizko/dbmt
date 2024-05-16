@@ -1,14 +1,31 @@
 import psycopg2
 import os
 import argparse
+from urllib.parse import urlparse
 
 class MigrationTool:
-    def __init__(self, db_config, migrations_dir):
-        self.db_config = db_config
+    def __init__(self, db_url, migrations_dir):
+        self.db_url = db_url
         self.migrations_dir = migrations_dir
-        self.connection = psycopg2.connect(**self.db_config)
+        self.connection = self._connect_to_db()
         self.cursor = self.connection.cursor()
         self._ensure_migrations_table()
+
+    def _connect_to_db(self):
+        result = urlparse(self.db_url)
+        username = result.username
+        password = result.password
+        database = result.path[1:]
+        hostname = result.hostname
+        port = result.port
+
+        return psycopg2.connect(
+            dbname=database,
+            user=username,
+            password=password,
+            host=hostname,
+            port=port
+        )
 
     def _ensure_migrations_table(self):
         self.cursor.execute("""
@@ -36,7 +53,7 @@ class MigrationTool:
     def rollback_migration(self, migration_name):
         downgrade_file = migration_name.replace('.sql', '_down.sql')
         downgrade_path = os.path.join(self.migrations_dir, downgrade_file)
-
+        
         if not os.path.exists(downgrade_path):
             print(f"No downgrade script found for {migration_name}")
             return
@@ -76,18 +93,12 @@ def main():
     up_parser = subparsers.add_parser("up", help="Run migrations")
     down_parser = subparsers.add_parser("down", help="Rollback last migration")
 
+    parser.add_argument("--db-url", required=True, help="PostgreSQL database URL")
+    parser.add_argument("--migrations-dir", default="migrations", help="Directory containing migration files")
+
     args = parser.parse_args()
 
-    db_config = {
-        'dbname': 'your_db_name',
-        'user': 'your_db_user',
-        'password': 'your_db_password',
-        'host': 'your_db_host',
-        'port': 'your_db_port'
-    }
-    migrations_dir = "migrations"
-
-    tool = MigrationTool(db_config, migrations_dir)
+    tool = MigrationTool(args.db_url, args.migrations_dir)
 
     if args.command == "up":
         tool.migrate()
