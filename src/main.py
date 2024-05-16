@@ -1,5 +1,6 @@
 import psycopg2
 import os
+import argparse
 
 class MigrationTool:
     def __init__(self, db_config, migrations_dir):
@@ -27,7 +28,7 @@ class MigrationTool:
     def apply_migration(self, migration_name):
         with open(os.path.join(self.migrations_dir, migration_name), 'r') as file:
             sql = file.read()
-
+        
         self.cursor.execute(sql)
         self.cursor.execute("INSERT INTO migrations (name) VALUES (%s)", (migration_name,))
         self.connection.commit()
@@ -42,15 +43,26 @@ class MigrationTool:
                 self.apply_migration(migration)
                 print(f"Migration applied: {migration}")
 
+def main():
+    parser = argparse.ArgumentParser(description="PostgreSQL Migration Tool")
+    subparsers = parser.add_subparsers(dest="command")
+
+    up_parser = subparsers.add_parser("up", help="Run migrations")
+
+    args = parser.parse_args()
+
+    if args.command == "up":
+        db_config = {
+            'dbname': 'your_db_name',
+            'user': 'your_db_user',
+            'password': 'your_db_password',
+            'host': 'your_db_host',
+            'port': 'your_db_port'
+        }
+        migrations_dir = "migrations"
+
+        tool = MigrationTool(db_config, migrations_dir)
+        tool.migrate()
+
 if __name__ == "__main__":
-    db_config = {
-        'dbname': 'your_db_name',
-        'user': 'your_db_user',
-        'password': 'your_db_password',
-        'host': 'your_db_host',
-        'port': 'your_db_port'
-    }
-    migrations_dir = "migrations"
-    
-    tool = MigrationTool(db_config, migrations_dir)
-    tool.migrate()
+    main()
