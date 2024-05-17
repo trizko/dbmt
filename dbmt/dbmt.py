@@ -87,7 +87,7 @@ class MigrationTool:
         print(f"Migration rolled back: {last_migration}")
 
 def main():
-    parser = argparse.ArgumentParser(description="PostgreSQL Migration Tool")
+    parser = argparse.ArgumentParser(description="SQL Database Migration Tool for PostgreSQL")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     base_subparser = argparse.ArgumentParser(add_help=False)

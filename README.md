@@ -1,6 +1,6 @@
 # dbmt
 
-`dbmt` is a simple PostgreSQL migration tool written in Python. It helps you manage database migrations, including applying new migrations and rolling back the last applied migration.
+`dbmt` is a simple PostgreSQL database migration tool written in Python. It helps you manage database migrations, including applying new migrations and rolling back the last applied migration.
 
 ## Features
 
