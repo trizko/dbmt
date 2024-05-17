@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="pgmigrate",
+    name="dbmt",
     version="0.1.0",
     packages=find_packages(),
     include_package_data=True,
@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "pgmigrate=pgmigrate.pgmigrate:main",
+            "dbmt=dbmt.dbmt:main",
         ],
     },
     author="Tony Rizko",
@@ -18,7 +18,7 @@ setup(
     description="A simple PostgreSQL migration tool.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/trizko/pgmigrate",
+    url="https://github.com/trizko/dbmt",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

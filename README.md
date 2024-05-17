@@ -1,6 +1,6 @@
-# pgmigrate
+# dbmt
 
-`pgmigrate` is a simple PostgreSQL migration tool written in Python. It helps you manage database migrations, including applying new migrations and rolling back the last applied migration.
+`dbmt` is a simple PostgreSQL migration tool written in Python. It helps you manage database migrations, including applying new migrations and rolling back the last applied migration.
 
 ## Features
 
@@ -14,7 +14,7 @@
 
 ## Installation
 
-Install `pgmigrate` from the root directory of this repo:
+Install `dbmt` from the root directory of this repo:
 
 ```sh
 pip install .
@@ -22,15 +22,15 @@ pip install .
 
 ## Usage
 
-### Command-line Arguments
-
-- `--db-url`: The PostgreSQL database URL (required).
-- `--migrations-dir`: The directory containing migration files (default: `migrations`).
-
 ### Subcommands
 
 - `up`: Apply new migrations.
 - `down`: Rollback the last applied migration.
+
+### Command-line Arguments
+
+- `--db-url`: The PostgreSQL database URL (required).
+- `--migrations-dir`: The directory containing migration files (default: `migrations`).
 
 ### Examples
 
@@ -39,7 +39,7 @@ pip install .
 To apply all pending migrations:
 
 ```sh
-pgmigrate up --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
+dbmt up --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
 ```
 
 #### Rolling Back the Last Migration
@@ -47,7 +47,7 @@ pgmigrate up --db-url postgres://user:password@localhost:5432/your_db_name --mig
 To rollback the last applied migration:
 
 ```sh
-pgmigrate down --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
+dbmt down --db-url postgres://user:password@localhost:5432/your_db_name --migrations-dir migrations
 ```
 
 ### Migration Files
