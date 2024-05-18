@@ -14,10 +14,23 @@
 
 ## Installation
 
-Install `dbmt` from the root directory of this repo:
+This package is not uploaded to PyPi but can be installed from this repository's URL in the following ways:
 
+### Using `pip`
+Install directly from the command line using pip, like so:
 ```sh
-pip install .
+pip install git+https://github.com/trizko/dbmt
+```
+Or by adding it to your `requirements.txt`:
+```
+dbmt @ git+https://github.com/trizko/dbmt
+```
+
+### Using `poetry`
+With poetry, you can install by adding the following to your `pyproject.toml`:
+```toml
+[tool.poetry.dependencies]
+dbmt = { git = "https://github.com/trizko/dbmt.git" }
 ```
 
 ## Usage
