@@ -45,6 +45,11 @@ dbmt = { git = "https://github.com/trizko/dbmt.git" }
 - `--db-url`: The PostgreSQL database URL (required).
 - `--migrations-dir`: The directory containing migration files (default: `migrations`).
 
+### Migration file naming
+When creating migration files, consider the following rules of how these files are applied during upgrades and downgrades:
+- Migration files are applied in alphanumerical order. It is recommended that they use a number prefix and a descriptive name for the migration, e.g. `001_initial.sql`, `002_add_users_table.sql`, etc.
+- The downgrade files should have the same number prefix and description as the upgrade files, followed by the `_down` suffix, e.g. `001_initial_down.sql`, `002_add_users_table_down.sql`, etc. These files will only be used during downgrades.
+
 ### Examples
 
 #### Applying Migrations
